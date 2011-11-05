@@ -11,7 +11,7 @@ License:	MIT
 Group:		Graphics
 
 Source:		%{name}-%{version}.tar.gz
-
+Patch0:		leptonica-1.68-mdv-libpng15.patch
 BuildRequires:	zlib-devel
 BuildRequires:	tiff-devel
 BuildRequires:	jpeg-devel
@@ -66,6 +66,7 @@ This package contains development files only.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure2_5x --disable-static --disable-programs

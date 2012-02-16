@@ -4,13 +4,13 @@
 
 Name:		leptonica
 Version:	1.68
-Release:	%mkrel 1
+Release:	2
 Summary:	C library for image processing and image analysis operations
 URL:		http://www.leptonica.org
 License:	MIT
 Group:		Graphics
 
-Source:		%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 Patch0:		leptonica-1.68-mdv-libpng15.patch
 BuildRequires:	zlib-devel
 BuildRequires:	tiff-devel
@@ -60,7 +60,6 @@ This package contains development files only.
 
 %files -n %develname
 %{_libdir}/*.so
-%dir %{_includedir}/leptonica
 %{_includedir}/leptonica
 %doc leptonica-license.txt README.html
 

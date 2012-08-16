@@ -3,8 +3,8 @@
 %define develname	%mklibname -d lept
 
 Name:		leptonica
-Version:	1.68
-Release:	2
+Version:	1.69
+Release:	1
 Summary:	C library for image processing and image analysis operations
 URL:		http://www.leptonica.org
 License:	MIT
@@ -65,7 +65,7 @@ This package contains development files only.
 
 %prep
 %setup -q
-%patch0 -p1
+#patch0 -p1
 
 %build
 %configure2_5x --disable-static --disable-programs

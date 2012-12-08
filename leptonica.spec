@@ -11,7 +11,6 @@ License:	MIT
 Group:		Graphics
 
 Source0:	%{name}-%{version}.tar.gz
-Patch0:		leptonica-1.68-mdv-libpng15.patch
 BuildRequires:	zlib-devel
 BuildRequires:	tiff-devel
 BuildRequires:	jpeg-devel
@@ -65,7 +64,6 @@ This package contains development files only.
 
 %prep
 %setup -q
-#patch0 -p1
 
 %build
 %configure2_5x --disable-static --disable-programs
@@ -73,4 +71,15 @@ This package contains development files only.
 
 %install
 %makeinstall_std
-%__rm -f %{buildroot}%{_libdir}/*.la
+
+
+%changelog
+* Thu Feb 16 2012 Alexander Khrukin <akhrukin@mandriva.org> 1.68-2
++ Revision: 775145
+- rebuild and release bump
+
+* Sat Nov 05 2011 Andrey Smirnov <asmirnov@mandriva.org> 1.68-1
++ Revision: 720806
+- libpng15 compatibility fixed
+- imported package leptonica
+

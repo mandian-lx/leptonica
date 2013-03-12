@@ -66,6 +66,8 @@ This package contains development files only.
 %setup -q
 
 %build
+sed -i 's/EGifOpenFileHandle(fd))/EGifOpenFileHandle(fd, NULL))/g' src/gifio.c
+sed -i 's/DGifOpenFileHandle(fd))/DGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 %configure2_5x --disable-static --disable-programs
 %make
 

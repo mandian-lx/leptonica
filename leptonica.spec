@@ -1,4 +1,4 @@
-%define major		2
+%define major		3
 %define libname		%mklibname lept %major
 %define develname	%mklibname -d lept
 
@@ -68,8 +68,11 @@ This package contains development files only.
 %build
 sed -i 's/EGifOpenFileHandle(fd))/EGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 sed -i 's/DGifOpenFileHandle(fd))/DGifOpenFileHandle(fd, NULL))/g' src/gifio.c
-%configure2_5x --disable-static --disable-programs
-%make
+#% configure2_5x --disable-static --disable-programs
+./configure --prefix=%{_prefix} --libdir=%{_libdir} --disable-programs --disable-static
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+make
 
 %install
 %makeinstall_std

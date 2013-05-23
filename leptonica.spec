@@ -1,21 +1,20 @@
-%define major		3
-%define libname		%mklibname lept %major
-%define develname	%mklibname -d lept
+%define major	3
+%define libname	%mklibname lept %{major}
+%define devname	%mklibname -d lept
 
+Summary:	C library for image processing and image analysis operations
 Name:		leptonica
 Version:	1.69
 Release:	1
-Summary:	C library for image processing and image analysis operations
-URL:		http://www.leptonica.org
 License:	MIT
 Group:		Graphics
-
+Url:		http://www.leptonica.org
 Source0:	%{name}-%{version}.tar.gz
-BuildRequires:	zlib-devel
-BuildRequires:	tiff-devel
-BuildRequires:	jpeg-devel
-BuildRequires:	png-devel
 BuildRequires:	giflib-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	tiff-devel
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(zlib)
 
 %description
 Well-tested C code for some basic image processing operations, along with
@@ -26,10 +25,10 @@ at all depths. There are also implementations of binary morphology, grayscale
 morphology, convolution and rank order filters, and applications such as jbig2
 image processing and color quantization.
 
-%package -n %libname 
+%package -n %{libname} 
 Summary:	C library for image processing and image analysis operations
 
-%description -n %libname
+%description -n %{libname}
 Well-tested C code for some basic image processing operations, along with
 a description of the functions and some design methods. A full set of affine
 transformations (translation, shear, rotation, scaling) on images of all depths
@@ -38,29 +37,13 @@ at all depths. There are also implementations of binary morphology, grayscale
 morphology, convolution and rank order filters, and applications such as jbig2
 image processing and color quantization.
 
-%files -n %libname
-%{_libdir}/*.so.*
-
-%package -n %develname
+%package -n %{devname}
 Summary:	C library for image processing and image analysis operations
-Requires:	%libname = %{version}
-Provides:	leptonica-devel = %version
+Requires:	%{libname} = %{version}
+Provides:	%{name}-devel = %{version}
 
-%description -n %develname
-Well-tested C code for some basic image processing operations, along with
-a description of the functions and some design methods. A full set of affine
-transformations (translation, shear, rotation, scaling) on images of all depths
-is included, with the exception that some of the scaling methods do not work
-at all depths. There are also implementations of binary morphology, grayscale
-morphology, convolution and rank order filters, and applications such as jbig2
-image processing and color quantization.
-
+%description -n %{devname}
 This package contains development files only.
-
-%files -n %develname
-%{_libdir}/*.so
-%{_includedir}/leptonica
-%doc leptonica-license.txt README.html
 
 %prep
 %setup -q
@@ -69,7 +52,11 @@ This package contains development files only.
 sed -i 's/EGifOpenFileHandle(fd))/EGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 sed -i 's/DGifOpenFileHandle(fd))/DGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 #% configure2_5x --disable-static --disable-programs
-./configure --prefix=%{_prefix} --libdir=%{_libdir} --disable-programs --disable-static
+./configure \
+	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
+	--disable-programs \
+	--disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 make
@@ -77,14 +64,11 @@ make
 %install
 %makeinstall_std
 
+%files -n %{libname}
+%{_libdir}/liblept.so.%{major}*
 
-%changelog
-* Thu Feb 16 2012 Alexander Khrukin <akhrukin@mandriva.org> 1.68-2
-+ Revision: 775145
-- rebuild and release bump
-
-* Sat Nov 05 2011 Andrey Smirnov <asmirnov@mandriva.org> 1.68-1
-+ Revision: 720806
-- libpng15 compatibility fixed
-- imported package leptonica
+%files -n %{devname}
+%doc leptonica-license.txt README.html
+%{_libdir}/*.so
+%{_includedir}/leptonica
 

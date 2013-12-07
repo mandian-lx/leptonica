@@ -5,7 +5,7 @@
 Summary:	C library for image processing and image analysis operations
 Name:		leptonica
 Version:	1.69
-Release:	4
+Release:	5
 License:	MIT
 Group:		Graphics
 Url:		http://www.leptonica.org

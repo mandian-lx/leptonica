@@ -4,12 +4,12 @@
 
 Summary:	C library for image processing and image analysis operations
 Name:		leptonica
-Version:	1.69
-Release:	9
+Version:	1.72
+Release:	1
 License:	MIT
 Group:		Graphics
 Url:		http://www.leptonica.org
-Source0:	%{name}-%{version}.tar.gz
+Source0:	http://www.leptonica.org/source/%{name}-%{version}.tar.gz
 BuildRequires:	giflib-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
@@ -52,14 +52,15 @@ This package contains development files only.
 sed -i 's/EGifOpenFileHandle(fd))/EGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 sed -i 's/DGifOpenFileHandle(fd))/DGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 #% configure2_5x --disable-static --disable-programs
-./configure \
+%configure \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--disable-programs \
 	--disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make
+
+%make
 
 %install
 %makeinstall_std

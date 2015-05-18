@@ -1,6 +1,6 @@
-%define major	3
-%define libname	%mklibname lept %{major}
-%define devname	%mklibname -d lept
+%define major 4
+%define libname %mklibname lept %{major}
+%define devname %mklibname -d lept
 
 Summary:	C library for image processing and image analysis operations
 Name:		leptonica
@@ -72,4 +72,5 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %doc leptonica-license.txt README.html
 %{_libdir}/*.so
 %{_includedir}/leptonica
+%{_libdir}/pkgconfig/lept.pc
 

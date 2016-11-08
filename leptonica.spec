@@ -1,4 +1,4 @@
-%define major	3
+%define major	4
 %define libname	%mklibname lept %{major}
 %define devname	%mklibname -d lept
 
@@ -9,7 +9,7 @@ Release:	1
 License:	MIT
 Group:		Graphics
 Url:		http://www.leptonica.org
-Source0:	%{name}-%{version}.tar.gz
+Source0:	http://www.leptonica.org/source/%{name}-%{version}.tar.gz
 BuildRequires:	giflib-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
@@ -52,7 +52,7 @@ This package contains development files only.
 sed -i 's/EGifOpenFileHandle(fd))/EGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 sed -i 's/DGifOpenFileHandle(fd))/DGifOpenFileHandle(fd, NULL))/g' src/gifio.c
 #% configure2_5x --disable-static --disable-programs
-./configure \
+%configure \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--disable-programs \
@@ -71,4 +71,6 @@ make
 %doc leptonica-license.txt README.html
 %{_libdir}/*.so
 %{_includedir}/leptonica
+%{_libdir}/pkgconfig/lept.pc
+
 
